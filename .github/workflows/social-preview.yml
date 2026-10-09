@@ -32,7 +32,7 @@ jobs:
                             output_width=1200, output_height=630)
           with open("og-image.png","rb") as f:
               header=f.read(24)
-          assert header[:8] == b'\\x89PNG\\r\\n\\x1a\\n', "Not a PNG"
+          assert header[:8] == b'\x89PNG\r\n\x1a\n', "Not a PNG"
           assert struct.unpack(">II",header[16:24]) == (1200,630), "Wrong dimensions"
           print("Verified og-image.png: PNG 1200x630")
           PY
