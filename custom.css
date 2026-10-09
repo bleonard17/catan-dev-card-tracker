@@ -102,3 +102,42 @@
 .legal-details[open] {
   flex-basis: 100%;
 }
+
+
+/* Compact attribution picker appears only when both owners are possible. */
+.owner-choice {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 2px 2px;
+  margin-top: 5px;
+  border-top: 1px solid var(--border);
+}
+.owner-choice span {
+  margin-right: auto;
+  color: var(--muted);
+  font-size: 0.68rem;
+  font-weight: 750;
+}
+.owner-choice button {
+  min-height: 36px;
+  padding: 0 10px;
+  border: 1px solid var(--border-strong);
+  border-radius: 9px;
+  background: var(--button-blue);
+  color: #fff;
+  cursor: pointer;
+  font-size: 0.73rem;
+  font-weight: 800;
+}
+.owner-choice button:hover { background: var(--button-blue-hover); }
+.owner-choice button:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+.owner-choice .owner-cancel {
+  min-width: 34px;
+  padding: 0 6px;
+  background: transparent;
+}
+@media (max-width: 360px) {
+  .owner-choice { flex-wrap: wrap; }
+  .owner-choice span { flex-basis: 100%; }
+}
