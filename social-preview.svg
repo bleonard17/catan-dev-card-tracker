@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="Catan Dev Card Tracker — a live development-card odds companion for Catan games.">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0B2A43"/>
+      <stop offset="0.55" stop-color="#081C2D"/>
+      <stop offset="1" stop-color="#061522"/>
+    </linearGradient>
+    <linearGradient id="panel" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#163C5A"/>
+      <stop offset="1" stop-color="#0F2B43"/>
+    </linearGradient>
+    <linearGradient id="orange" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FF983D"/>
+      <stop offset="1" stop-color="#FF7600"/>
+    </linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="16" stdDeviation="22" flood-color="#000000" flood-opacity="0.28"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <circle cx="1020" cy="60" r="250" fill="#1B5B88" opacity="0.12"/>
+  <circle cx="80" cy="590" r="260" fill="#238FEA" opacity="0.06"/>
+  <rect x="25" y="25" width="1150" height="580" rx="30" fill="none" stroke="#2B587A" stroke-width="2"/>
+
+  <!-- left copy -->
+  <rect x="74" y="70" width="170" height="34" rx="17" fill="#173A55" stroke="#356587"/>
+  <circle cx="95" cy="87" r="5" fill="#FF8A28"/>
+  <text x="109" y="93" font-family="DejaVu Sans, Arial, sans-serif" font-size="14" font-weight="700" letter-spacing="1.8" fill="#C6D7E4">UNOFFICIAL FAN TOOL</text>
+
+  <text x="74" y="210" font-family="DejaVu Sans, Arial, sans-serif" font-size="65" font-weight="800" letter-spacing="-2.5" fill="#FFFFFF">Catan Dev Card</text>
+  <text x="74" y="281" font-family="DejaVu Sans, Arial, sans-serif" font-size="65" font-weight="800" letter-spacing="-2.5" fill="#FFFFFF">Tracker</text>
+
+  <text x="78" y="347" font-family="DejaVu Sans, Arial, sans-serif" font-size="25" font-weight="600" fill="#C6D7E4">Track the deck. Know the odds.</text>
+  <text x="78" y="391" font-family="DejaVu Sans, Arial, sans-serif" font-size="18" fill="#A9C0D3">Log cards as they're bought, drawn and played</text>
+  <text x="78" y="421" font-family="DejaVu Sans, Arial, sans-serif" font-size="18" fill="#A9C0D3">and see live probabilities for the next draw.</text>
+
+  <rect x="78" y="495" width="235" height="52" rx="26" fill="#153A56" stroke="#3F749C"/>
+  <text x="195.5" y="527" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="17" font-weight="700" fill="#FFFFFF">devcard.trilho.dev</text>
+
+  <!-- right app preview -->
+  <g filter="url(#shadow)">
+    <rect x="690" y="58" width="420" height="514" rx="24" fill="#071925" stroke="#3F749C" stroke-width="2"/>
+  </g>
+
+  <text x="720" y="96" font-family="DejaVu Sans, Arial, sans-serif" font-size="20" font-weight="800" fill="#FFFFFF">Catan Dev Card Tracker</text>
+
+  <!-- summary panel -->
+  <rect x="718" y="118" width="364" height="162" rx="18" fill="url(#panel)" stroke="#3F749C"/>
+  <text x="740" y="146" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="800" letter-spacing="1.8" fill="#FF983D">CARDS REMAINING</text>
+  <text x="740" y="203" font-family="DejaVu Sans, Arial, sans-serif" font-size="58" font-weight="900" fill="#FFFFFF">17</text>
+  <text x="805" y="203" font-family="DejaVu Sans, Arial, sans-serif" font-size="22" font-weight="800" fill="#C6D7E4">/25</text>
+
+  <circle cx="1025" cy="170" r="37" fill="none" stroke="#36516A" stroke-width="8"/>
+  <path d="M1025 133 A37 37 0 1 1 989.8 181.4" fill="none" stroke="#35A0FF" stroke-width="8" stroke-linecap="round"/>
+  <text x="1025" y="177" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="800" fill="#FFFFFF">68%</text>
+
+  <rect x="740" y="218" width="320" height="48" rx="12" fill="url(#orange)" stroke="#FFB269" stroke-width="1.5"/>
+  <rect x="754" y="226" width="32" height="32" rx="8" fill="#E9F1F8" opacity="0.95"/>
+  <circle cx="770" cy="242" r="8" fill="#35A0FF"/>
+  <path d="M765 243 C772 231 780 235 780 240 C776 248 770 251 764 249Z" fill="#77C85C"/>
+  <text x="800" y="248" font-family="DejaVu Sans, Arial, sans-serif" font-size="17" font-weight="900" fill="#081C2D">Dev Bought</text>
+  <rect x="1019" y="227" width="30" height="30" rx="9" fill="#081C2D" opacity="0.12"/>
+  <text x="1034" y="247" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="900" fill="#081C2D">+1</text>
+
+  <!-- card odds heading -->
+  <text x="720" y="318" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="800" letter-spacing="1.7" fill="#FF983D">CARD ODDS</text>
+  <text x="720" y="345" font-family="DejaVu Sans, Arial, sans-serif" font-size="17" font-weight="800" fill="#FFFFFF">Next draw</text>
+
+  <!-- row 1 -->
+  <rect x="718" y="360" width="364" height="58" rx="13" fill="#123651" stroke="#2B587A"/>
+  <rect x="730" y="370" width="30" height="38" rx="7" fill="#8F69B0"/>
+  <circle cx="745" cy="386" r="7" fill="#D7D7D0"/>
+  <rect x="740" y="390" width="10" height="11" rx="4" fill="#D7D7D0"/>
+  <text x="772" y="385" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="800" fill="#FFFFFF">Knight</text>
+  <text x="772" y="403" font-family="DejaVu Sans, Arial, sans-serif" font-size="10" font-weight="700" fill="#C6D7E4">3 of 14 known</text>
+  <text x="967" y="390" text-anchor="end" font-family="DejaVu Sans, Arial, sans-serif" font-size="22" font-weight="900" fill="#FFFFFF">52.4%</text>
+  <rect x="980" y="368" width="43" height="42" rx="9" fill="#1D5F91" stroke="#3F749C"/>
+  <text x="1001.5" y="394" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="10" font-weight="900" fill="#FFFFFF">Drew</text>
+  <rect x="1029" y="368" width="43" height="42" rx="9" fill="url(#orange)"/>
+  <text x="1050.5" y="394" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="10" font-weight="900" fill="#081C2D">Played</text>
+
+  <!-- row 2 -->
+  <rect x="718" y="426" width="364" height="58" rx="13" fill="#123651" stroke="#2B587A"/>
+  <rect x="730" y="436" width="30" height="38" rx="7" fill="#8F69B0"/>
+  <text x="745" y="460" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="900" fill="#FFFFFF">MON</text>
+  <text x="772" y="451" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="800" fill="#FFFFFF">Monopoly</text>
+  <text x="772" y="469" font-family="DejaVu Sans, Arial, sans-serif" font-size="10" font-weight="700" fill="#C6D7E4">1 of 2 known</text>
+  <text x="967" y="456" text-anchor="end" font-family="DejaVu Sans, Arial, sans-serif" font-size="22" font-weight="900" fill="#FFFFFF">4.8%</text>
+  <rect x="980" y="434" width="43" height="42" rx="9" fill="#1D5F91" stroke="#3F749C"/>
+  <text x="1001.5" y="460" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="10" font-weight="900" fill="#FFFFFF">Drew</text>
+  <rect x="1029" y="434" width="43" height="42" rx="9" fill="url(#orange)"/>
+  <text x="1050.5" y="460" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="10" font-weight="900" fill="#081C2D">Played</text>
+
+  <!-- row 3 -->
+  <rect x="718" y="492" width="364" height="58" rx="13" fill="#123651" stroke="#2B587A"/>
+  <rect x="730" y="502" width="30" height="38" rx="7" fill="#8F69B0"/>
+  <text x="745" y="526" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="900" fill="#FFFFFF">+2</text>
+  <text x="772" y="517" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="800" fill="#FFFFFF">Year of Plenty</text>
+  <text x="772" y="535" font-family="DejaVu Sans, Arial, sans-serif" font-size="10" font-weight="700" fill="#C6D7E4">0 of 2 known</text>
+  <text x="967" y="522" text-anchor="end" font-family="DejaVu Sans, Arial, sans-serif" font-size="22" font-weight="900" fill="#FFFFFF">9.5%</text>
+  <rect x="980" y="500" width="43" height="42" rx="9" fill="#1D5F91" stroke="#3F749C"/>
+  <text x="1001.5" y="526" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="10" font-weight="900" fill="#FFFFFF">Drew</text>
+  <rect x="1029" y="500" width="43" height="42" rx="9" fill="url(#orange)"/>
+  <text x="1050.5" y="526" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="10" font-weight="900" fill="#081C2D">Played</text>
+</svg>
