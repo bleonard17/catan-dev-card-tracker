@@ -1,77 +1,42 @@
-# Catan Dev Card Assistant
+# Catan Dev Card Tracker
 
-A tiny browser-based development-card counter designed to sit beside a Colonist.io game in a narrow split-screen window.
+A lightweight browser-based development-card probability tracker for the standard 25-card CATAN deck. Designed for a narrow split-screen panel beside Colonist.io.
 
-## What it tracks
+## Game actions
 
-Standard 25-card CATAN development deck:
+- **Dev Bought** — an opponent buys an unknown development card. Decreases deck size and increases hidden cards.
+- **I Drew** — you draw a card of that type. Decreases deck size and records its known identity.
+- **Played** — someone plays a card of that type, including **a card you previously recorded with I Drew**.
+  - If only one owner is possible, the tracker records it in one click.
+  - If both you and an opponent could have played it, choose **Mine** or **Opponent**.
+  - **Mine:** increments played count only; your draw was already known, so draw odds do not change.
+  - **Opponent:** records the identity of a previously hidden opponent draw; draw odds update.
+- **Undo** — reverses the last recorded game action.
+- **Reset** — starts a fresh game, with confirmation.
 
-- 14 Knights
-- 5 Victory Points
-- 2 Road Building
-- 2 Year of Plenty
-- 2 Monopoly
+The row displays **X of N played · Y known**. Played counts real-world plays. Known counts card identities the tracker has learned (your own draws plus opponents' revealed cards). Rows are marked OUT once every card of that type is known, but you can still play your remaining own cards.
 
-## Controls
+## Math
 
-### Unknown Draw
-Use when an opponent buys a development card and you do not know its identity.
+Standard deck: 14 Knights, 5 Victory Points, 2 Road Building, 2 Year of Plenty, 2 Monopoly.
 
-### Drew
-Use on a specific card row when **you** buy that card. This records both:
-1. one card leaving the physical deck, and
-2. the card's known identity.
-
-### Seen
-Use when an opponent's previously hidden card gets played or otherwise revealed.
-
-If you already recorded your own card with **Drew**, do not press **Seen** when you later play it. Its identity was already known.
-
-### Undo / Reset
-- **Undo** reverses the most recent action.
-- **Reset** starts a fresh game.
-- Nothing is persisted. Reloading the page also starts fresh.
-
-## Probability model
-
-The app distinguishes between:
-
-- **Physical deck**: cards that can still be drawn.
-- **Known cards**: drawn cards whose identities are known.
-- **Hidden cards**: cards opponents drew but have not revealed.
-
-A hidden opponent draw reduces the physical deck size, but by itself does not change the posterior probability of the next card's identity. Its type is still unknown and is part of the same unseen card pool.
-
-For card type `i`:
+For each card type `i`:
 
 ```text
-P(next card is i)
-= (original cards of type i - known cards of type i)
-  / (25 - total known card identities)
+Known[i] = MyDrawn[i] + OpponentPlayed[i]
+Hidden = TotalDrawn - sum(Known)
+P(next draw is i) = (Original[i] - Known[i]) / (25 - sum(Known))
 ```
 
-The "Est. in deck" value is the expected physical count remaining after accounting for hidden cards:
+If the deck is empty, next-draw probability is 0 for all types.
 
-```text
-Expected cards of type i in physical deck
-= unseen cards of type i
-  × physical cards remaining
-  / total unseen cards
-```
+Opponent hidden purchases shrink the physical deck but not the per-type *conditional* probability by themselves. Playing your own known card also doesn't change that probability. Opponent reveals do.
 
-## Run locally
+## Technical notes
 
-Open `index.html` in a browser. No build step or server is required.
+- No accounts, backend or persistence; page refresh resets the session.
+- GitHub Pages with static HTML/CSS/JavaScript.
+- The main tracker is at https://devcard.trilho.dev/.
+- Social preview metadata and share image are in `index.html`, `social-preview.svg` and `og-image.png`.
 
-## Publish with GitHub Pages
-
-1. Push these files to a GitHub repository.
-2. In the repository, open **Settings → Pages**.
-3. Set Pages to deploy from the repository's main branch/root.
-4. GitHub will provide the public URL.
-
-## Files
-
-- `index.html` — app shell
-- `styles.css` — narrow portrait-style UI
-- `app.js` — state, actions, probability model
+Unofficial fan-made tool; see the on-site Legal section for attribution and non-affiliation details.
