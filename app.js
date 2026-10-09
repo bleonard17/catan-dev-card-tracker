@@ -13,15 +13,19 @@
     { id: "victory-point", name: "Victory Point", short: "VP", total: 5, icon: ICONS.victoryPoint }
   ];
 
+  const emptyCounts = () => Object.fromEntries(CARD_TYPES.map(card => [card.id, 0]));
   const freshState = () => ({
     drawn: 0,
-    known: Object.fromEntries(CARD_TYPES.map(card => [card.id, 0]))
+    ownDrawn: emptyCounts(),
+    ownPlayed: emptyCounts(),
+    opponentPlayed: emptyCounts()
   });
 
   let state = freshState();
   let previousRemaining = TOTAL_CARDS;
   let celebrationTimer = null;
   const history = [];
+  let pendingChoice = null;
 
   const els = {
     favicon: document.getElementById("favicon"),
@@ -48,11 +52,28 @@
   }
 
   function cloneState(value) {
-    return { drawn: value.drawn, known: { ...value.known } };
+    return {
+      drawn: value.drawn,
+      ownDrawn: { ...value.ownDrawn },
+      ownPlayed: { ...value.ownPlayed },
+      opponentPlayed: { ...value.opponentPlayed }
+    };
+  }
+
+  function knownFor(cardId) {
+    return state.ownDrawn[cardId] + state.opponentPlayed[cardId];
+  }
+
+  function playedFor(cardId) {
+    return state.ownPlayed[cardId] + state.opponentPlayed[cardId];
+  }
+
+  function ownUnplayed(cardId) {
+    return state.ownDrawn[cardId] - state.ownPlayed[cardId];
   }
 
   function knownTotal() {
-    return Object.values(state.known).reduce((sum, n) => sum + n, 0);
+    return CARD_TYPES.reduce((sum, card) => sum + knownFor(card.id), 0);
   }
 
   function hiddenCount() {
@@ -69,7 +90,7 @@
 
   function probabilityFor(card) {
     if (physicalRemaining() <= 0) return 0;
-    const unseenOfType = card.total - state.known[card.id];
+    const unseenOfType = card.total - knownFor(card.id);
     const unseenPool = unseenPoolSize();
     return unseenPool > 0 ? unseenOfType / unseenPool : 0;
   }
@@ -85,37 +106,79 @@
 
   function recordUnknownDraw() {
     if (state.drawn >= TOTAL_CARDS) return;
-    pushHistory("Dev bought");
+    pushHistory("Opponent bought a dev card");
     state.drawn += 1;
-    setStatus("Hidden dev recorded");
+    pendingChoice = null;
+    setStatus("Opponent's hidden card recorded");
     render();
   }
 
   function recordKnownDraw(cardId) {
     const card = CARD_TYPES.find(c => c.id === cardId);
-    if (!card || state.drawn >= TOTAL_CARDS || state.known[cardId] >= card.total) return;
+    if (!card || state.drawn >= TOTAL_CARDS || knownFor(cardId) >= card.total) return;
 
-    pushHistory(`Drew ${card.name}`);
+    pushHistory(`I drew ${card.name}`);
     state.drawn += 1;
-    state.known[cardId] += 1;
-    setStatus(`${card.name} drawn`);
+    state.ownDrawn[cardId] += 1;
+    pendingChoice = null;
+    setStatus(`You drew ${card.name}`);
     render();
   }
 
-  function revealHiddenCard(cardId) {
-    const card = CARD_TYPES.find(c => c.id === cardId);
-    if (!card || hiddenCount() <= 0 || state.known[cardId] >= card.total) return;
+  function canPlayMine(cardId) {
+    return ownUnplayed(cardId) > 0;
+  }
 
-    pushHistory(`Played ${card.name}`);
-    state.known[cardId] += 1;
-    setStatus(`${card.name} revealed`);
+  function canPlayOpponent(cardId) {
+    const card = CARD_TYPES.find(c => c.id === cardId);
+    return !!card && hiddenCount() > 0 && knownFor(cardId) < card.total;
+  }
+
+  function recordPlayed(cardId, who) {
+    const card = CARD_TYPES.find(c => c.id === cardId);
+    if (!card) return;
+    if (who === "mine" && !canPlayMine(cardId)) return;
+    if (who === "opponent" && !canPlayOpponent(cardId)) return;
+
+    pushHistory(`${who === "mine" ? "My" : "Opponent's"} ${card.name} played`);
+    if (who === "mine") {
+      // Its identity was already known when you drew it: do not change draw odds.
+      state.ownPlayed[cardId] += 1;
+    } else {
+      // Opponent's previously hidden card is now identified.
+      state.opponentPlayed[cardId] += 1;
+    }
+    pendingChoice = null;
+    setStatus(`${card.name} played (${who === "mine" ? "mine" : "opponent"})`);
     render();
+  }
+
+  function selectPlayed(cardId) {
+    const mine = canPlayMine(cardId);
+    const opponent = canPlayOpponent(cardId);
+    if (mine && opponent) {
+      pendingChoice = pendingChoice === cardId ? null : cardId;
+      render();
+      if (pendingChoice) {
+        els.cardRows.querySelector('.owner-choice [data-action="play-mine"]')?.focus();
+      }
+      return;
+    }
+    if (mine) recordPlayed(cardId, "mine");
+    else if (opponent) recordPlayed(cardId, "opponent");
+  }
+
+  function cancelChoice(cardId) {
+    pendingChoice = null;
+    render();
+    els.cardRows.querySelector(`button[data-action="played"][data-card-id="${cardId}"]`)?.focus();
   }
 
   function undo() {
     const previous = history.pop();
     if (!previous) return;
     state = previous.state;
+    pendingChoice = null;
     setStatus(`Undid: ${previous.label}`);
     render();
   }
@@ -125,6 +188,7 @@
     if (hasActivity && !window.confirm("Reset this game? All counters will return to zero.")) return;
 
     state = freshState();
+    pendingChoice = null;
     previousRemaining = TOTAL_CARDS;
     history.length = 0;
     hideCelebration();
@@ -157,12 +221,22 @@
     return `<span class="card-fallback" aria-hidden="true">${card.short}</span>`;
   }
 
+  function chooserMarkup(card) {
+    return '<div class="owner-choice" role="group" aria-label="Who played ' + card.name + '?">' +
+      '<span>Whose card?</span>' +
+      '<button type="button" data-action="play-mine" data-card-id="' + card.id + '">Mine</button>' +
+      '<button type="button" data-action="play-opponent" data-card-id="' + card.id + '">Opponent</button>' +
+      '<button type="button" class="owner-cancel" data-action="cancel" data-card-id="' + card.id + '" aria-label="Cancel">✕</button>' +
+      '</div>';
+  }
+
   function rowMarkup(card) {
-    const known = state.known[card.id];
+    const known = knownFor(card.id);
+    const played = playedFor(card.id);
     const probability = probabilityFor(card);
     const isOut = known >= card.total;
     const canDraw = state.drawn < TOTAL_CARDS && !isOut;
-    const canReveal = hiddenCount() > 0 && !isOut;
+    const canPlay = canPlayMine(card.id) || canPlayOpponent(card.id);
 
     return `
       <article class="card-row${isOut ? " card-out" : ""}" data-card-id="${card.id}">
@@ -174,7 +248,7 @@
                 <div class="card-name">${card.name}</div>
                 ${isOut ? '<span class="out-badge">OUT</span>' : ""}
               </div>
-              <div class="card-sub">${known} of ${card.total} known</div>
+              <div class="card-sub">${played} of ${card.total} played · ${known} known</div>
             </div>
           </div>
 
@@ -190,17 +264,19 @@
               data-card-id="${card.id}"
               aria-label="I drew ${card.name}"
               ${canDraw ? "" : "disabled"}
-            >Drew</button>
+            >I Drew</button>
             <button
               class="played-btn"
               type="button"
               data-action="played"
               data-card-id="${card.id}"
-              aria-label="Opponent played ${card.name}"
-              ${canReveal ? "" : "disabled"}
+              aria-label="Record ${card.name} played"
+              aria-expanded="${pendingChoice === card.id ? "true" : "false"}"
+              ${canPlay ? "" : "disabled"}
             >Played</button>
           </div>
         </div>
+        ${pendingChoice === card.id ? chooserMarkup(card) : ""}
       </article>
     `;
   }
@@ -255,11 +331,21 @@
 
   els.cardRows.addEventListener("click", event => {
     const button = event.target.closest("button[data-action]");
-    if (!button) return;
-
+    if (!button || button.disabled) return;
     const cardId = button.dataset.cardId;
-    if (button.dataset.action === "draw") recordKnownDraw(cardId);
-    if (button.dataset.action === "played") revealHiddenCard(cardId);
+    const action = button.dataset.action;
+    if (action === "draw") recordKnownDraw(cardId);
+    else if (action === "played") selectPlayed(cardId);
+    else if (action === "play-mine") recordPlayed(cardId, "mine");
+    else if (action === "play-opponent") recordPlayed(cardId, "opponent");
+    else if (action === "cancel") cancelChoice(cardId);
+  });
+
+  els.cardRows.addEventListener("keydown", event => {
+    if (event.key === "Escape" && pendingChoice) {
+      event.preventDefault();
+      cancelChoice(pendingChoice);
+    }
   });
 
   render();
