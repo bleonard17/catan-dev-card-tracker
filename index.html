@@ -27,7 +27,7 @@
   <meta name="twitter:image:alt" content="Catan Dev Card Tracker showing live development-card draw odds." />
   <link id="favicon" rel="icon" type="image/png" />
   <link rel="stylesheet" href="styles.css?v=6" />
-  <link rel="stylesheet" href="custom.css?v=8" />
+  <link rel="stylesheet" href="custom.css?v=9" />
 </head>
 <body>
   <main class="app-shell">
@@ -77,8 +77,9 @@
 
       <div id="helpPanel" class="help-panel" hidden>
         <p><strong>Dev Bought</strong> = an opponent buys a hidden card.</p>
-        <p><strong>Drew</strong> = you drew this exact card, so its identity is known immediately.</p>
-        <p><strong>Played</strong> = an opponent reveals or plays a previously hidden card.</p>
+        <p><strong>I Drew</strong> = you bought this exact card. It is counted immediately as known.</p>
+        <p><strong>Played</strong> = you or an opponent played this card. Click even if you previously used <strong>I Drew</strong>.</p>
+        <p>If both you and an opponent could have played it, choose whose card it was. Playing your own card never changes the odds twice.</p>
       </div>
 
       <div id="cardRows" class="card-rows"></div>
@@ -116,6 +117,6 @@
   <script src="assets/road-building.js?v=6"></script>
   <script src="assets/victory-point.js?v=6"></script>
   <script src="assets/year-of-plenty.js?v=6"></script>
-  <script src="app.js?v=8"></script>
+  <script src="app.js?v=9"></script>
 </body>
 </html>
