@@ -32,7 +32,7 @@
   <text x="74" y="210" font-family="DejaVu Sans, Arial, sans-serif" font-size="65" font-weight="800" letter-spacing="-2.5" fill="#FFFFFF">Catan Dev Card</text>
   <text x="74" y="281" font-family="DejaVu Sans, Arial, sans-serif" font-size="65" font-weight="800" letter-spacing="-2.5" fill="#FFFFFF">Tracker</text>
 
-  <text x="78" y="347" font-family="DejaVu Sans, Arial, sans-serif" font-size="25" font-weight="600" fill="#C6D7E4">Track the deck. Know the odds.</text>
+  <text x="78" y="347" font-family="DejaVu Sans, Arial, sans-serif" font-size="25" font-weight="600" fill="#C6D7E4">Know the odds before you pop</text>
   <text x="78" y="391" font-family="DejaVu Sans, Arial, sans-serif" font-size="18" fill="#A9C0D3">Log cards as they're bought, drawn and played</text>
   <text x="78" y="421" font-family="DejaVu Sans, Arial, sans-serif" font-size="18" fill="#A9C0D3">and see live probabilities for the next draw.</text>
 
