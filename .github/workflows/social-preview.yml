@@ -46,5 +46,6 @@ jobs:
             echo "Share image unchanged."
           else
             git commit -m "Generate 1200x630 social sharing preview"
+            git pull --rebase origin main
             git push
           fi
