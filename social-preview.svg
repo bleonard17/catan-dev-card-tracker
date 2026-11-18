@@ -75,10 +75,10 @@
   <circle cx="745" cy="386" r="7" fill="#D7D7D0"/>
   <rect x="740" y="390" width="10" height="11" rx="4" fill="#D7D7D0"/>
   <text x="772" y="385" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="800" fill="#FFFFFF">Knight</text>
-  <text x="772" y="403" font-family="DejaVu Sans, Arial, sans-serif" font-size="10" font-weight="700" fill="#C6D7E4">3 of 14 known</text>
+  <text x="772" y="403" font-family="DejaVu Sans, Arial, sans-serif" font-size="10" font-weight="700" fill="#C6D7E4">2 of 14 played · 3 known</text>
   <text x="967" y="390" text-anchor="end" font-family="DejaVu Sans, Arial, sans-serif" font-size="22" font-weight="900" fill="#FFFFFF">52.4%</text>
   <rect x="980" y="368" width="43" height="42" rx="9" fill="#1D5F91" stroke="#3F749C"/>
-  <text x="1001.5" y="394" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="10" font-weight="900" fill="#FFFFFF">Drew</text>
+  <text x="1001.5" y="394" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="10" font-weight="900" fill="#FFFFFF">I Drew</text>
   <rect x="1029" y="368" width="43" height="42" rx="9" fill="url(#orange)"/>
   <text x="1050.5" y="394" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="10" font-weight="900" fill="#081C2D">Played</text>
 
@@ -87,10 +87,10 @@
   <rect x="730" y="436" width="30" height="38" rx="7" fill="#8F69B0"/>
   <text x="745" y="460" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="900" fill="#FFFFFF">MON</text>
   <text x="772" y="451" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="800" fill="#FFFFFF">Monopoly</text>
-  <text x="772" y="469" font-family="DejaVu Sans, Arial, sans-serif" font-size="10" font-weight="700" fill="#C6D7E4">1 of 2 known</text>
+  <text x="772" y="469" font-family="DejaVu Sans, Arial, sans-serif" font-size="10" font-weight="700" fill="#C6D7E4">1 of 2 played · 1 known</text>
   <text x="967" y="456" text-anchor="end" font-family="DejaVu Sans, Arial, sans-serif" font-size="22" font-weight="900" fill="#FFFFFF">4.8%</text>
   <rect x="980" y="434" width="43" height="42" rx="9" fill="#1D5F91" stroke="#3F749C"/>
-  <text x="1001.5" y="460" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="10" font-weight="900" fill="#FFFFFF">Drew</text>
+  <text x="1001.5" y="460" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="10" font-weight="900" fill="#FFFFFF">I Drew</text>
   <rect x="1029" y="434" width="43" height="42" rx="9" fill="url(#orange)"/>
   <text x="1050.5" y="460" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="10" font-weight="900" fill="#081C2D">Played</text>
 
@@ -99,10 +99,10 @@
   <rect x="730" y="502" width="30" height="38" rx="7" fill="#8F69B0"/>
   <text x="745" y="526" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="900" fill="#FFFFFF">+2</text>
   <text x="772" y="517" font-family="DejaVu Sans, Arial, sans-serif" font-size="15" font-weight="800" fill="#FFFFFF">Year of Plenty</text>
-  <text x="772" y="535" font-family="DejaVu Sans, Arial, sans-serif" font-size="10" font-weight="700" fill="#C6D7E4">0 of 2 known</text>
+  <text x="772" y="535" font-family="DejaVu Sans, Arial, sans-serif" font-size="10" font-weight="700" fill="#C6D7E4">0 of 2 played · 0 known</text>
   <text x="967" y="522" text-anchor="end" font-family="DejaVu Sans, Arial, sans-serif" font-size="22" font-weight="900" fill="#FFFFFF">9.5%</text>
   <rect x="980" y="500" width="43" height="42" rx="9" fill="#1D5F91" stroke="#3F749C"/>
-  <text x="1001.5" y="526" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="10" font-weight="900" fill="#FFFFFF">Drew</text>
+  <text x="1001.5" y="526" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="10" font-weight="900" fill="#FFFFFF">I Drew</text>
   <rect x="1029" y="500" width="43" height="42" rx="9" fill="url(#orange)"/>
   <text x="1050.5" y="526" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="10" font-weight="900" fill="#081C2D">Played</text>
 </svg>
