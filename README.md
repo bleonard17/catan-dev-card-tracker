@@ -40,3 +40,10 @@ Opponent hidden purchases shrink the physical deck but not the per-type *conditi
 - Social preview metadata and share image are in `index.html`, `social-preview.svg` and `og-image.png`.
 
 Unofficial fan-made tool; see the on-site Legal section for attribution and non-affiliation details.
+
+## Development checks
+
+The browser logic has dependency-free Node regression tests in `tests/tracker.test.cjs`.
+Run them with `node --test tests/tracker.test.cjs`; they also run on pushes and pull requests through GitHub Actions.
+
+For narrow screens (380px and below), card actions stack below the card identity so names remain readable.
