@@ -81,7 +81,7 @@ function createTracker() {
     assert.ok(el.listeners.click, id + " must have click handler");
     el.listeners.click();
   };
-  return { state: () => window.__inspect(), action, click, get };
+  return { state: () => window.__inspect(), action, click, get, document };
 }
 
 function validState(s) {
@@ -231,13 +231,29 @@ test("reset clears drawn, known, played, history, and pending owner choice", () 
   assert.equal(app.get("undoBtn").disabled,true);
 });
 
+test("keyboard focus stays on a usable card control after a row re-render", () => {
+  const app=createTracker();
+  let focused=0;
+  app.document.activeElement = {
+    dataset: { action: "draw", cardId: "knight" },
+    closest: selector => selector === "#cardRows" ? {} : null
+  };
+  app.get("cardRows").querySelector = () => ({
+    disabled: false,
+    focus() { focused += 1; }
+  });
+  app.action("draw","knight");
+  assert.equal(focused,1,"replaced control regains focus");
+  validState(app.state());
+});
+
 test("static documents and share artwork match the current UI", () => {
   const html=fs.readFileSync(path.join(__dirname,"..","index.html"),"utf8");
   const svg=fs.readFileSync(path.join(__dirname,"..","social-preview.svg"),"utf8");
   const css=fs.readFileSync(path.join(__dirname,"..","styles.css"),"utf8");
   assert.match(html,/styles\.css\?v=10/);
   assert.doesNotMatch(html,/custom\.css/);
-  assert.match(html,/app\.js\?v=10/);
+  assert.match(html,/app\.js\?v=11/);
   assert.match(html,/og:image" content="https:\/\/devcard\.trilho\.dev\/og-image\.png\?v=2"/);
   assert.match(svg,/>I Drew<\/text>/);
   assert.match(svg,/played · 3 known/);
