@@ -137,6 +137,7 @@
   function recordPlayed(cardId, who) {
     const card = CARD_TYPES.find(c => c.id === cardId);
     if (!card) return;
+    if (who !== "mine" && who !== "opponent") return;
     if (who === "mine" && !canPlayMine(cardId)) return;
     if (who === "opponent" && !canPlayOpponent(cardId)) return;
 
@@ -222,7 +223,7 @@
   }
 
   function chooserMarkup(card) {
-    return '<div class="owner-choice" role="group" aria-label="Who played ' + card.name + '?">' +
+    return '<div id="choice-' + card.id + '" class="owner-choice" role="group" aria-label="Who played ' + card.name + '?">' +
       '<span>Whose card?</span>' +
       '<button type="button" data-action="play-mine" data-card-id="' + card.id + '">Mine</button>' +
       '<button type="button" data-action="play-opponent" data-card-id="' + card.id + '">Opponent</button>' +
@@ -271,7 +272,8 @@
               data-action="played"
               data-card-id="${card.id}"
               aria-label="Record ${card.name} played"
-              aria-expanded="${pendingChoice === card.id ? "true" : "false"}"
+              ${canPlayMine(card.id) && canPlayOpponent(card.id) ? `aria-expanded="${pendingChoice === card.id}"` : ""}
+              ${pendingChoice === card.id ? `aria-controls="choice-${card.id}"` : ""}
               ${canPlay ? "" : "disabled"}
             >Played</button>
           </div>
@@ -283,6 +285,10 @@
 
   function render() {
     const remaining = physicalRemaining();
+    // Undoing the final purchase must dismiss a still-visible celebration.
+    if (remaining > 0 && els.deckCelebration && !els.deckCelebration.hidden) {
+      hideCelebration();
+    }
     const known = knownTotal();
     const hidden = hiddenCount();
     const remainingPct = remaining / TOTAL_CARDS;
