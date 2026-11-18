@@ -306,7 +306,25 @@
 
     els.unknownDrawBtn.disabled = state.drawn >= TOTAL_CARDS;
     els.undoBtn.disabled = history.length === 0;
+
+    // Re-rendering the rows replaces the clicked button. Preserve keyboard
+    // focus so subsequent actions do not unexpectedly jump to the page body.
+    const active = document.activeElement;
+    const focusData = active && active.closest?.("#cardRows") && active.dataset?.cardId
+      ? { cardId: active.dataset.cardId, action: active.dataset.action }
+      : null;
     els.cardRows.innerHTML = CARD_TYPES.map(rowMarkup).join("");
+    if (focusData) {
+      const replacement = els.cardRows.querySelector(
+        `button[data-action="${focusData.action}"][data-card-id="${focusData.cardId}"]`
+      );
+      const fallback = els.cardRows.querySelector(
+        `button[data-action="played"][data-card-id="${focusData.cardId}"]`
+      );
+      if (replacement && !replacement.disabled) replacement.focus();
+      else if (fallback && !fallback.disabled) fallback.focus();
+      else els.undoBtn.focus();
+    }
 
     const title = els.unknownDrawBtn.querySelector(".primary-btn-title");
     const plus = els.unknownDrawBtn.querySelector(".primary-btn-plus");
