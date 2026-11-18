@@ -38,7 +38,7 @@ button:focus-visible {
   width: min(100%, 430px);
   min-height: 100vh;
   margin: 0 auto;
-  padding: 7px 12px 8px;
+  padding: 10px 12px 14px;
 }
 
 .topbar,
@@ -49,9 +49,9 @@ button:focus-visible {
   justify-content: space-between;
 }
 .topbar {
-  min-height: 42px;
+  min-height: 44px;
   gap: 10px;
-  margin-bottom: 5px;
+  margin-bottom: 7px;
 }
 h1, h2, p { margin-top: 0; }
 h1 {
@@ -69,8 +69,8 @@ h2 {
   gap: 6px;
 }
 .icon-btn {
-  width: 42px;
-  height: 42px;
+  width: 44px;
+  height: 44px;
   padding: 0;
   border: 1px solid var(--border-strong);
   border-radius: 10px;
@@ -87,7 +87,7 @@ h2 {
 }
 
 .deck-card {
-  padding: 10px 12px 9px;
+  padding: 12px 12px 10px;
   border: 1px solid var(--border-strong);
   border-radius: var(--radius);
   background: linear-gradient(180deg, #143b59 0%, var(--panel) 100%);
@@ -211,10 +211,10 @@ h2 {
 }
 .mini-stats strong { font-size: 0.86rem; }
 
-.cards-section { margin-top: 7px; }
+.cards-section { margin-top: 15px; }
 .section-heading {
   min-height: 34px;
-  margin-bottom: 4px;
+  margin-bottom: 6px;
 }
 .text-btn {
   padding: 3px 1px 2px;
@@ -245,11 +245,11 @@ h2 {
 
 .card-rows {
   display: grid;
-  gap: 5px;
+  gap: 7px;
 }
 .card-row {
   min-height: 64px;
-  padding: 5px 7px;
+  padding: 6px 8px;
   border: 1px solid var(--border);
   border-radius: 13px;
   background: var(--panel-2);
@@ -332,10 +332,11 @@ h2 {
 .card-actions {
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 8px;
 }
 .probability {
   min-width: 57px;
+  margin-right: 2px;
   text-align: right;
 }
 .probability strong {
@@ -354,7 +355,7 @@ h2 {
 }
 .drew-btn,
 .played-btn {
-  min-height: 42px;
+  min-height: 44px;
   padding: 0 8px;
   border-radius: 9px;
   cursor: pointer;
@@ -400,7 +401,7 @@ h2 {
   align-items: center;
   gap: 6px;
   min-height: 20px;
-  margin-top: 3px;
+  margin-top: 7px;
   color: var(--muted);
   font-size: 0.6rem;
   text-align: center;
@@ -491,4 +492,119 @@ h2 {
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
   }
+}
+
+/* Layout refinements and secondary controls. */
+.creator-credit {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  margin-top: 6px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(169, 192, 211, 0.16);
+  color: var(--muted);
+  font-size: 0.68rem;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.creator-credit strong {
+  color: var(--text);
+  font-weight: 850;
+}
+
+.credit-separator {
+  opacity: 0.65;
+}
+
+.legal-details {
+  display: inline-block;
+}
+
+.legal-details summary {
+  display: inline-block;
+  padding: 2px 0 1px;
+  border-bottom: 1px dotted var(--muted);
+  color: var(--muted);
+  cursor: pointer;
+  list-style: none;
+  font-weight: 750;
+}
+
+.legal-details summary::-webkit-details-marker {
+  display: none;
+}
+
+.legal-details summary:hover,
+.legal-details[open] summary {
+  color: var(--text);
+  border-bottom-color: var(--text);
+}
+
+.legal-copy {
+  width: 100%;
+  margin: 7px auto 0;
+  padding: 8px 9px;
+  border: 1px solid rgba(169, 192, 211, 0.18);
+  border-radius: 9px;
+  background: rgba(8, 28, 45, 0.62);
+  color: var(--muted);
+  font-size: 0.62rem;
+  line-height: 1.4;
+  text-align: left;
+}
+
+.legal-details[open] {
+  flex-basis: 100%;
+}
+
+
+/* Compact attribution picker appears only when both owners are possible. */
+.owner-choice {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 2px 2px;
+  margin-top: 5px;
+  border-top: 1px solid var(--border);
+}
+.owner-choice span {
+  margin-right: auto;
+  color: var(--muted);
+  font-size: 0.68rem;
+  font-weight: 750;
+}
+.owner-choice button {
+  min-height: 44px;
+  padding: 0 10px;
+  border: 1px solid var(--border-strong);
+  border-radius: 9px;
+  background: var(--button-blue);
+  color: #fff;
+  cursor: pointer;
+  font-size: 0.73rem;
+  font-weight: 800;
+}
+.owner-choice button:hover { background: var(--button-blue-hover); }
+.owner-choice button:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+.owner-choice .owner-cancel {
+  min-width: 34px;
+  padding: 0 6px;
+  background: transparent;
+}
+@media (max-width: 360px) {
+  .owner-choice { flex-wrap: wrap; }
+  .owner-choice span { flex-basis: 100%; }
+}
+
+/* Preserve full card names and usable tap targets on narrow phones.
+   The usual 400px+ split-screen layout remains a compact single row. */
+@media (max-width: 380px) {
+  .card-line { grid-template-columns: minmax(0, 1fr); gap: 6px; }
+  .card-name { white-space: normal; overflow: visible; text-overflow: clip; }
+  .card-actions { padding-left: 43px; }
+  .probability { margin-right: auto; text-align: left; }
+  .card-row { padding: 7px 8px; }
 }
